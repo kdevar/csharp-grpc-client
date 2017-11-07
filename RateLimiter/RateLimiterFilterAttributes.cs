@@ -17,8 +17,8 @@ namespace RateLimiter.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            //probably not the right way to do this - must be some way to have container inject
-            IRateLimiterClient service = context.HttpContext.RequestServices.GetService<IRateLimiterClient>();
+            //probably not the right way to do this - must be some way to have the container inject
+            IRateLimiterService service = context.HttpContext.RequestServices.GetService<IRateLimiterService>();
             Request request = RateLimiterHelper.CreateRequestFromContext(context);
             State rateLimitResponse = service.checkRequest(request);
             RateLimiterHelper.DetermineResponse(rateLimitResponse, context);            
@@ -29,9 +29,9 @@ namespace RateLimiter.Filters
     {        
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var uri = new Uri("http://localhost:3001/check-request");
-            var request = RateLimiterHelper.CreateRequestFromContext(context);
-            var content = new StringContent(JsonConvert.SerializeObject(request, new JsonSerializerSettings
+            Uri uri = new Uri("http://localhost:3001/check-request");
+            Request request = RateLimiterHelper.CreateRequestFromContext(context);
+            StringContent content = new StringContent(JsonConvert.SerializeObject(request, new JsonSerializerSettings
             {
                 ContractResolver = new DefaultContractResolver
                 {
@@ -70,7 +70,7 @@ namespace RateLimiter.Filters
 
         public static Request CreateRequestFromContext(ActionExecutingContext context)
         {
-            var request = new Request();
+            Request request = new Request();
             request.Key = context.HttpContext.Request.Path;
             request.Expire = "60";
             return request;

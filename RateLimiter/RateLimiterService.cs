@@ -8,26 +8,26 @@ namespace RateLimiter.Interfaces
     {
         Channel MakeRPCChannel();
     }
-    public interface IRateLimiterClient
+    public interface IRateLimiterService
     {
         State checkRequest(Request request);
     }
 }
 namespace RateLimiter.Services
 {
-    public class ChannelMaker : Interfaces.IChannelMaker
+    public class ChannelMakerImpl : Interfaces.IChannelMaker
     {
         public Channel MakeRPCChannel()
         {
             return new Channel("localhost:50051", ChannelCredentials.Insecure);
         }
     }
-    public class RateLimiterClient :IRateLimiterClient
+    public class RateLimiterServiceImpl : IRateLimiterService
     {
         public Channel channel { get; }
         public Ratelimiter.RateLimiter.RateLimiterClient client { get; }
 
-        public RateLimiterClient(IChannelMaker channelMaker)
+        public RateLimiterServiceImpl(IChannelMaker channelMaker)
         {
             channel = channelMaker.MakeRPCChannel();
             client = new Ratelimiter.RateLimiter.RateLimiterClient(channel);
