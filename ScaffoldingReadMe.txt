@@ -1,37 +1,33 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using RateLimiter.Interfaces;
-using RateLimiter.Services;
+﻿
+ASP.NET MVC core dependencies have been added to the project.
+However you may still need to do make changes to your project.
+1. Add Scaffolding CLI tool to the project:
+    <ItemGroup>
+        <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+    </ItemGroup>
 
-namespace csharp_client
-{
-    public class Startup
-    {
+2. Suggested changes to Startup class:
+    2.1 Add a constructor:
+        public IConfigurationRoot Configuration { get; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
-
-        public IConfigurationRoot Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+    2.2 Add MVC services:
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddMvc();
-            services.AddSingleton<IChannelMaker>(new ChannelMaker());
-            services.AddSingleton<IRateLimiterClient, RateLimiter.Services.RateLimiterClient>();
-        }
+       }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    2.3 Configure web app to use use Configuration and use MVC routing:
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -40,7 +36,6 @@ namespace csharp_client
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {
@@ -56,5 +51,3 @@ namespace csharp_client
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
-    }
-}

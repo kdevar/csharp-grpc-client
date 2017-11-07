@@ -5,11 +5,11 @@
 
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using grpc = global::Grpc.Core;
 
-namespace Ratelimiter {
-  public static partial class RateLimiter
+namespace Ratelimiter
+{
+    public static partial class RateLimiter
   {
     static readonly string __ServiceName = "ratelimiter.RateLimiter";
 

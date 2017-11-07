@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: monospace,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
 }
 
 /* Wrapping element */
@@ -67,6 +68,12 @@ textarea {
 
 }
 
+.red{
+    color: white;
+    background:darkred;
+    border-color: darkred;
+}
+
 .row.center-row {
     display: flex;
     align-items: center;
@@ -85,3 +92,27 @@ footer {
 footer p{
     padding-top: 50px;
 }
+
+.list-side-by-side {
+    width: 40%;
+    font-family: monospace,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
+}
+
+.list-side-by-side dt {
+    float: left;
+    margin-right: 10%;
+    max-width: 40%;
+    font-weight: bold;
+}
+
+.list-side-by-side dd {
+    color: grey;
+    margin-left: 50%;
+    margin-bottom: .5em;
+}
+
+.list-side-by-side dd::after {
+    content: " ";
+    display: block;
+    clear: left;
+}  

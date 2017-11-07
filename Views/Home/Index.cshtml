@@ -6,11 +6,21 @@
                 <strong>Action # 1</strong>
             </div>
             <div class="panel-body block">
-                <p class="action-text">Actions taken</p>
+                <p class="action-text">Actions taken</p>                
                 <div id="action1" class="circle">
-                    <div>1</div>
+                    <div class="number"></div>                                        
                 </div>
-                <button class="btn btn-default btn-lg">Take New Action</button>
+                <button class="btn btn-default btn-lg" onclick="takeAction('One', 1)">Take New Action</button>                
+            </div>
+            <div  class="panel-footer">
+                <dl class="list-side-by-side action1">
+                    <dt>Endpoint</dt>
+                    <dd id="endpoint"></dd>
+                    <dt>Status</dt>
+                    <dd id="status"></dd>
+                    <dt>Expired</dt>
+                    <dd id="expired"></dd>
+                </dl>
             </div>
         </div>
 
@@ -23,9 +33,19 @@
             <div class="panel-body block">
                 <p class="action-text">Actions taken</p>
                 <div id="action2" class="circle">
-                    <div>1</div>
+                    <div class="number"></div>
                 </div>
-                <button class="btn btn-default btn-lg">Take New Action</button>
+                <button class="btn btn-default btn-lg" onclick="takeAction('Two', 2)">Take New Action</button>
+            </div>
+            <div class="panel-footer">
+                <dl class="list-side-by-side action2">
+                    <dt>Endpoint</dt>
+                    <dd id="endpoint"></dd>
+                    <dt>Status</dt>
+                    <dd id="status"></dd>
+                    <dt>Expired</dt>
+                    <dd id="expired"></dd>
+                </dl>
             </div>
         </div>
     </div>
@@ -37,9 +57,19 @@
             <div class="panel-body block">
                 <p class="action-text">Actions taken</p>
                 <div id="action3" class="circle">
-                    <div>1</div>
+                    <div class="number"></div>
                 </div>
-                <button class="btn btn-default btn-lg">Take New Action</button>
+                <button class="btn btn-default btn-lg" onclick="takeAction('Three', 3)">Take New Action</button>
+            </div>
+            <div class="panel-footer">
+                <dl class="list-side-by-side action3">
+                    <dt>Endpoint</dt>
+                    <dd id="endpoint"></dd>
+                    <dt>Status</dt>
+                    <dd id="status"></dd>
+                    <dt>Expired</dt>
+                    <dd id="expired"></dd>
+                </dl>
             </div>
         </div>
     </div>
