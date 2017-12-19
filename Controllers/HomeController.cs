@@ -5,8 +5,7 @@ using RateLimiter.Interfaces;
 namespace csharp_client.Controllers
 {
     public class HomeController : Controller
-    {
-        
+    {        
         public IActionResult Index()
         {                       
             return View();

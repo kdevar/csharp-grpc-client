@@ -28,7 +28,7 @@ namespace csharp_client
             // Add framework services.
             services.AddMvc();
             services.AddSingleton<IChannelMaker>(new ChannelMakerImpl());
-            services.AddSingleton<IRateLimiterService, RateLimiter.Services.RateLimiterServiceImpl>();
+            services.AddSingleton<IRateLimiterService, RateLimiterServiceImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -21,7 +21,7 @@ namespace RateLimiter.Filters
             IRateLimiterService service = context.HttpContext.RequestServices.GetService<IRateLimiterService>();
             Request request = RateLimiterHelper.CreateRequestFromContext(context);
             State rateLimitResponse = service.checkRequest(request);
-            RateLimiterHelper.DetermineResponse(rateLimitResponse, context);            
+            RateLimiterHelper.HandleResponse(rateLimitResponse, context);            
         }
     }
 
@@ -42,14 +42,14 @@ namespace RateLimiter.Filters
             HttpResponseMessage httpResponse = await  client.PostAsync(uri, content);
             String httpContent = await httpResponse.Content.ReadAsStringAsync();
             State rateLimitResponse = JsonConvert.DeserializeObject<State>(httpContent);
-            RateLimiterHelper.DetermineResponse(rateLimitResponse, context);
+            RateLimiterHelper.HandleResponse(rateLimitResponse, context);
             await next();
         }
     }
 
     public class RateLimiterHelper
     {
-        public static void DetermineResponse(State rateLimitResponse, ActionExecutingContext context)
+        public static void HandleResponse(State rateLimitResponse, ActionExecutingContext context)
         {
             context.HttpContext.Response.Headers.Add("value", rateLimitResponse.NewValue.ToString());
             Debug.WriteLine("CURRENT VALUE = " + rateLimitResponse.NewValue.ToString());
